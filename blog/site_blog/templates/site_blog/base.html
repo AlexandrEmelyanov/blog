@@ -15,11 +15,12 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 
-    {% if title %}
-    <title>Блог клуба {{ title }}</title>
-    {% else %}
-    <title>Блог клуба Python Bytes</title>
-    {% endif %}
+<!--    {% if title %}-->
+<!--    <title>{{ title }}</title>-->
+<!--    {% else %}-->
+<!--    <title>Блог клуба Python Bytes</title>-->
+<!--    {% endif %}-->
+    <title>{% block title %} {% endblock %}</title>
 
 </head>
 <body>
@@ -40,7 +41,7 @@
                     <!-- Правая часть навигационной панели -->
                     <div class="navbar-nav">
                         <a class="nav-item nav-link" href="#">Вход</a>
-                        <a class="nav-item nav-link" href="#">Регистрация</a>
+                        <a class="nav-item nav-link" href="{% url 'users:register' %}">Регистрация</a>
                     </div>
                 </div>
             </div>
@@ -49,6 +50,14 @@
     <main role="main" class="container">
         <div class="row">
             <div class="col-md-8">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
                 {% block content %}{% endblock %}
             </div>
             <div class="col-md-4">
