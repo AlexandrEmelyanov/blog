@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 
-from .forms import UserRegisterForm, UserLoginForm
+from .forms import UserRegisterForm
 
 
 def register(request):
@@ -24,27 +24,6 @@ def register(request):
 
     return render(request=request, template_name='users/register.html', context=context)
 
-
-
-# def login(request):
-#     if request.POST:
-#         form = UserLoginForm(request.POST)
-#         if form.is_valid():
-#             username = request.POST['username']
-#             password = request.POST['password']
-#             user = auth.authenticate(username=username, password=password)
-#             if user:
-#                 auth.login(request, user)
-#                 return HttpResponseRedirect(reverse('index:blog-home'))
-#     else:
-#         form = UserLoginForm()
-#
-#     context = {
-#         'form': form,
-#         'title': 'Blog - Login',
-#     }
-#
-#     return render(request=request, template_name='users/login.html', context=context)
 
 
 

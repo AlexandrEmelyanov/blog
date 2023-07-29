@@ -93,6 +93,7 @@ DATABASES = {
 # Users
 AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = '/'
+# Если вы попытаетесь получить доступ к странице, требующей входа в систему, Django будет использовать LOGIN_URL для перенаправления
 LOGIN_URL = '/users/login/'
 
 # OAuth
