@@ -25,6 +25,9 @@ def register(request):
     return render(request=request, template_name='users/register.html', context=context)
 
 
-
-
-
+@login_required()
+def profile(request):
+    context = {
+        'title': 'Blog - Profile'
+    }
+    return render(request=request, template_name='users/profile.html', context=context)
