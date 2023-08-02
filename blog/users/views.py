@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, UserProfileForm
 
 
 def register(request):
@@ -27,7 +27,18 @@ def register(request):
 
 @login_required()
 def profile(request):
+    if request.method == 'POST':
+        form = UserProfileForm(data=request.POST, instance=request.user, files=request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Данные успешно изменены.')
+            return HttpResponseRedirect(reverse('users:profile'))
+    else:
+        form = UserProfileForm(instance=request.user)
+
     context = {
-        'title': 'Blog - Profile'
+        'title': 'Blog - Profile',
+        'form': form,
     }
+
     return render(request=request, template_name='users/profile.html', context=context)
