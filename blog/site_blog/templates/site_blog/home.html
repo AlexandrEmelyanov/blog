@@ -3,9 +3,14 @@
 {% block title %} {{title}} {% endblock %}
 
 {% block content %}
-    {% for post in posts %}
+    {% for post in object_list %}
         <article class="media content-section">
-            <img class="rounded-circle article-img" alt="Аватар" src="{% if post.author.image %} {{ post.author.image.url }} {% else %} {% static 'image/users/default.jpg' %} {% endif %}">
+            <img class="rounded-circle article-img" alt="Аватар" src="
+            {% if post.author.image %}
+                {{ post.author.image.url }}
+            {% else %}
+                {% static 'image/users/default.jpg' %}
+            {% endif %}">
             <div class="media-body">
             <div class="article-metadata">
                 <a class="mr-2" href="#">{{ post.author }}</a>
