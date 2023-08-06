@@ -1,4 +1,6 @@
 from django.db import models
+from django.shortcuts import reverse
+
 from users.models import User
 
 
@@ -10,6 +12,9 @@ class Posts(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('index:post-detail', kwargs={'pk': self.pk})
 
     class Meta:
         verbose_name = 'Post'
