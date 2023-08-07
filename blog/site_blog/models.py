@@ -16,6 +16,6 @@ class Posts(models.Model):
     def get_absolute_url(self):
         return reverse('index:post-detail', kwargs={'pk': self.pk})
 
-    class Meta:
+    class Meta:  # for admin panel
         verbose_name = 'Post'
         verbose_name_plural = 'Posts'
