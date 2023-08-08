@@ -20,7 +20,7 @@ class IndexView(TitleMixin, ListView):
 class UserPostListView(TitleMixin, ListView):
     model = Posts
     paginate_by = 5
-    title = 'Blog - UserPostsList'
+    title = 'Blog - UserPosts'
     template_name = 'site_blog/user_posts.html'
 
     def get_queryset(self):
