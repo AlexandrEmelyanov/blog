@@ -12,7 +12,7 @@ def register(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Вы успешно зарегистрировались! Можете войти в аккаунт.')
+            messages.success(request, f'Вы успешно зарегистрировались! Выполните вход в аккаунт.')
             return HttpResponseRedirect(reverse('users:login'))
     else:
         form = UserRegisterForm()
