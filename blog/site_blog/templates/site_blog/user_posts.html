@@ -1,0 +1,47 @@
+{% extends "site_blog/base.html" %}
+{% load static %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+    <h2 class="mb-3">Публикации пользователя: <em>{{ view.kwargs.username }}</em> <br>Всего: {{ page_obj.paginator.count }} записей</br></h2>
+    {% for post in object_list %}
+        <article class="media content-section">
+          <img class="rounded-circle article-img" src="
+            {% if post.author.image %}
+                {{ post.author.image.url }}
+            {% else %}
+                {% static 'image/users/default.jpg' %}
+            {% endif %}">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="{% url 'index:user-posts' post.author.username %}">{{ post.author }}</a>
+              <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+            </div>
+            <h2><a class="article-title" href="{% url 'index:post-detail' post.id %}">{{ post.title }}</a></h2>
+            <p class="article-content">{{ post.content }}</p>
+          </div>
+        </article>
+    {% endfor %}
+    <div class="pagination justify-content-center"> 
+        {% if is_paginated %}
+
+          {% if page_obj.has_previous %}
+            <a class="btn btn-outline-info mb-4 mr-1" href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+          {% endif %}
+
+          {% for page in page_obj.paginator.page_range %}
+            {% if page_obj.number == page %}
+              <a class="btn btn-info mb-4 mr-1" href="?page={{ page }}">{{ page }}</a>
+            {% elif page > page_obj.number|add:'-4' and page < page_obj.number|add:'4' %}
+              <a class="btn btn-outline-info mb-4 mr-1" href="?page={{ page }}">{{ page }}</a>
+            {% endif %}
+          {% endfor %}
+
+          {% if page_obj.has_next %}
+            <a class="btn btn-outline-info mb-4 mr-1" href="?page={{ page_obj.next_page_number }}">Следующая</a>
+          {% endif %}
+
+        {% endif %}
+    </div>
+{% endblock content %}

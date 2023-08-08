@@ -13,8 +13,8 @@
         {% endif %}">
     <div class="media-body">
       <div class="article-metadata">
-        <a class="mr-2" href="#">{{ object.author }}</a>
-        <small class="text-muted">{{ object.date_posted}}</small>
+        <a class="mr-2" href="{% url 'index:user-posts' post.author.username %}">{{ object.author }}</a>
+        <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
 
         {% if object.author == user %}
           <div>

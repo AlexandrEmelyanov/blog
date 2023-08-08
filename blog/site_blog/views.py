@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic.list import ListView
 from django.views.generic import DetailView, CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 
 from .models import Posts
+from users.models import User
 from common.views import TitleMixin
 
 
@@ -14,6 +15,17 @@ class IndexView(TitleMixin, ListView):
     ordering = ('-date_posted',)
     paginate_by = 5  # !!! don't work -- need added block paginator html !!!!
     title = 'Blog - Main'
+
+
+class UserPostListView(TitleMixin, ListView):
+    model = Posts
+    paginate_by = 5
+    title = 'Blog - UserPostsList'
+    template_name = 'site_blog/user_posts.html'
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Posts.objects.filter(author=user).order_by('-date_posted')
 
 
 class PostDetailView(TitleMixin, DetailView):
@@ -68,4 +80,3 @@ def about(request):
         'title': 'Blog - about'
     }
     return render(request, 'site_blog/about.html', context=context)
-
