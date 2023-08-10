@@ -21,6 +21,10 @@
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'index:post-update' object.id %}">Редактировать</a>
             <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'index:post-delete' object.id %}">Удалить</a>
           </div>
+        {% elif user.is_superuser %}
+          <div>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'index:post-delete' object.id %}">Удалить</a>
+          </div>
         {% endif %}
 
       </div>
