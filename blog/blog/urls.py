@@ -19,11 +19,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('site_blog.urls', namespace='index')),
     path('users/', include('users.urls', namespace='users')),
+    path('accounts/', include('allauth.urls')),
 ]
 
 if settings.DEBUG:
