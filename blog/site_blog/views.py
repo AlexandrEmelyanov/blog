@@ -13,7 +13,7 @@ class IndexView(TitleMixin, ListView):
     template_name = 'site_blog/home.html'
     model = Posts
     ordering = ('-date_posted',)
-    paginate_by = 5  # !!! don't work -- need added block paginator html !!!!
+    paginate_by = 5
     title = 'Blog - Main'
 
 

@@ -1,26 +1,30 @@
 {% extends 'site_blog/base.html' %}
 {% load static %}
+{% load cache %}
+
 {% block title %} {{title}} {% endblock %}
 
 {% block content %}
-    {% for post in object_list %}
-        <article class="media content-section">
-            <img class="rounded-circle article-img" alt="Аватар" src="
-            {% if post.author.image %}
-                {{ post.author.image.url }}
-            {% else %}
-                {% static 'image/users/default.jpg' %}
-            {% endif %}">
-            <div class="media-body">
-            <div class="article-metadata">
-                <a class="mr-2" href="{% url 'index:user-posts' post.author.username %}">{{ post.author }}</a>
-                <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
-            </div>
-                <h2><a class="article-title" href="{% url 'index:post-detail' post.id %}">{{ post.title }}</a></h2>
-                <p class="article-content">{{ post.content }}</p>
-            </div>
-        </article>
-    {% endfor %}
+    {% cache 15 object_list page_obj.number %}
+        {% for post in object_list %}
+            <article class="media content-section">
+                <img class="rounded-circle article-img" alt="Аватар" src="
+                    {% if post.author.image %}
+                        {{ post.author.image.url }}
+                    {% else %}
+                        {% static 'image/users/default.jpg' %}
+                    {% endif %}">
+                <div class="media-body">
+                    <div class="article-metadata">
+                        <a class="mr-2" href="{% url 'index:user-posts' post.author.username %}">{{ post.author }}</a>
+                        <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+                    </div>
+                    <h2><a class="article-title" href="{% url 'index:post-detail' post.id %}">{{ post.title }}</a></h2>
+                    <p class="article-content">{{ post.content }}</p>
+                </div>
+            </article>
+        {% endfor %}
+    {% endcache %}
 
     <div class="pagination justify-content-center">
         {% if is_paginated %}
@@ -43,4 +47,5 @@
 
         {% endif %}
     </div>
+
 {% endblock content %}
