@@ -5,7 +5,7 @@
 {% block title %} {{title}} {% endblock %}
 
 {% block content %}
-    {% cache 25 object_list page_obj.number %}
+    {% cache 1 object_list page_obj.number %}
         {% for post in object_list %}
             <article class="media content-section">
                 <img class="rounded-circle article-img" alt="Аватар" src="

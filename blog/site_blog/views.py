@@ -4,7 +4,7 @@ from django.views.generic import DetailView, CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 
-from .models import Posts
+from .models import Posts, PostCategory
 from users.models import User
 from common.views import TitleMixin
 
@@ -15,6 +15,11 @@ class IndexView(TitleMixin, ListView):
     ordering = ('-date_posted',)
     paginate_by = 5
     title = 'Blog - Main'
+
+    def get_queryset(self):
+        queryset = super(IndexView, self).get_queryset()
+        category_id = self.kwargs.get('category_id')
+        return queryset.filter(category_id=category_id) if category_id else queryset
 
 
 class UserPostListView(TitleMixin, ListView):

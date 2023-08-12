@@ -21,6 +21,12 @@ ul {
   margin: 0;
 }
 
+.list-category {
+    list-style-type: none;
+}
+
+
+
 .bg-blue {
   background-color: #459ac4;
 }

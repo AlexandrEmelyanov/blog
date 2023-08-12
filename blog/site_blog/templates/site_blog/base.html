@@ -23,8 +23,7 @@
     <header class="site-header">
         <nav class="navbar navbar-expand-md navbar-dark bg-blue fixed-top">
             <div class="container">
-                <a class="navbar-brand mr-4" href="{% url 'index:blog-home' %}"><i class='bx bxs-rocket bx-tada-hover'></i> Python
-                    Bytes</a>
+                <a class="navbar-brand mr-4" href="{% url 'index:blog-home' %}"><i class='bx bxs-rocket bx-tada-hover'></i> Blog IT</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
                         aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -32,7 +31,7 @@
                 <div class="collapse navbar-collapse" id="navbarToggle">
                     <div class="navbar-nav mr-auto">
                         <a class="nav-item nav-link " href="{% url 'index:blog-home' %}">Главная</a>
-                        <a class="nav-item nav-link" href="{% url 'index:about-club' %}">О клубе</a>
+                        <a class="nav-item nav-link" href="{% url 'index:about-club' %}">О блоге</a>
                     </div>
                     <!-- Правая часть навигационной панели -->
                     <div class="navbar-nav">
@@ -63,25 +62,26 @@
 
                 {% block content %}{% endblock %}
             </div>
+
             <div class="col-md-4">
                 <div class="content-section">
-                    <h3>Разделы</h3>
-                    <p class='text-muted'>новости и события
-                    <ul class="list-group">
-                        <li class="list-group-item list-group-item-light">Новые записи</li>
-                        <li class="list-group-item list-group-item-light">Объявления</li>
-                        <li class="list-group-item list-group-item-light">Соревнования</li>
-                        <li class="list-group-item list-group-item-light">Встречи участников</li>
-                    </ul>
+                    <h3>Категории</h3>
+                    <p class='text-muted'>
+                        <ul class="list-group">
+                            {% for cat in categories %}
+                                <li class="list-category"><a href="{% url 'index:category' cat.id %}" class="list-group-item list-group-item-light">{{ cat.name }}</a></li>
+                            {% endfor %}
+                        </ul>
                     </p>
                 </div>
             </div>
+
         </div>
 
     </main>
-    <!-- Футер закреплен внизу, независимо от количества постов на странице -->
+    <!-- Футер -->
     <footer class="text-center bg-dark">
-        <p><a href="{% url 'index:blog-home' %}">© Клуб Python Bytes 2022</a></p>
+        <p><a href="{% url 'index:blog-home' %}">© Blog - information technology</a></p>
     </footer>
 
     <!-- Дополнительные скрипты JavaScript -->
