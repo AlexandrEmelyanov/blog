@@ -123,3 +123,18 @@ footer a:hover {
   color:#777;
   text-decoration: none;
 }
+
+.link-muted { color: #aaa; } .link-muted:hover { color: #1266f1; }
+
+.content-wrapper {
+    width: 100%;
+}
+
+.col {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.content-comments {
+    padding-left: 12px;
+}
