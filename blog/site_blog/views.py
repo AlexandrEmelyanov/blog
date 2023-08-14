@@ -3,8 +3,10 @@ from django.views.generic.list import ListView
 from django.views.generic import DetailView, CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.urls import reverse_lazy
 
-from .models import Posts, PostCategory
+from .models import Posts
+from .forms import CommentForm
 from users.models import User
 from common.views import TitleMixin
 
@@ -37,6 +39,11 @@ class PostDetailView(TitleMixin, DetailView):
     model = Posts
     title = 'Blog - PostDetail'
     template_name = 'site_blog/post_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comment_form'] = CommentForm()
+        return context
 
 
 class PostCreateView(LoginRequiredMixin, SuccessMessageMixin, TitleMixin, CreateView):

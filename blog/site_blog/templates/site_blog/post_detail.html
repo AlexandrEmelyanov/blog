@@ -6,8 +6,8 @@
 {% block content %}
     <article class="media content-section">
         <img class="rounded-circle article-img" src="
-            {% if post.author.image %}
-                {{ post.author.image.url }}
+            {% if object.author.image %}
+                {{ object.author.image.url }}
             {% else %}
                 {% static 'image/users/default.jpg' %}
             {% endif %}">
@@ -33,7 +33,6 @@
         </div>
     </article>
 
-    <!--% if object.comment % -->
     <section>
         <div class="container">
             <div class="row">
@@ -41,71 +40,55 @@
                     <div class="content-wrapper">
                         <div class="card text-dark">
 
-                            <!--блог под цикл комментария -->
-                            <div class="card-body p-4">
-
-                                <!--вынести за цикл (общее) -->
-                                <h4 class="mb-0">Recent comments</h4>
-                                <p class="fw-light mb-4 pb-2">Latest Comments section by users</p>
-                                <!--вынести за цикл (общее) -->
-
-                                <div class="d-flex flex-start">
-                                    <img class="rounded-circle shadow-1-strong me-3"
-                                         src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(23).webp" alt="avatar"
-                                         width="60"
-                                         height="60"/>
-                                    <div class="content-comments"> <!--cls for padding img->content -->
-                                        <h6 class="fw-bold mb-1">Maggie Marsh</h6>
-                                        <div class="d-flex align-items-center mb-3">
-                                            <p class="mb-0">
-                                                March 07, 2021
-                                            </p>
+                            <!--блог списка комментарий -->
+                            {% if object.comments.all %}
+                                <h4 class="title-comments">Комментарии ({{ object.comments.count }})</h4>
+                                <hr class="my-0"/>
+                                {% for comment in object.comments.all %}
+                                    <div class="card-body p-4">
+                                        <div class="d-flex flex-start">
+                                            <img class="rounded-circle article-img" src="
+                                                {% if comment.author_com.image %}
+                                                    {{ comment.author_com.image.url }}
+                                                {% else %}
+                                                    {% static 'image/users/default.jpg' %}
+                                                {% endif %}">
+                                            <div class="content-comments">
+                                                <h6 class="fw-bold mb-1">{{ comment.author_com }}</h6>
+                                                <div class="d-flex align-items-center mb-3">
+                                                    <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
+                                                </div>
+                                                <p class="mb-0">
+                                                    {{ comment.content }}
+                                                </p>
+                                            </div>
                                         </div>
-                                        <p class="mb-0">
-                                            Lorem Ipsum is simply dummy text of the printing and typesetting
-                                            industry. Lorem Ipsum has been the industry's standard dummy text ever
-                                            since the 1500s, when an unknown printer took a galley of type and
-                                            scrambled it.
-                                        </p>
                                     </div>
+                                    <hr class="my-0"/>
+                                {% endfor %}
+                            {% else %}
+                                <h4 class="title-comments">Комментарии к записи отсутствуют</h4>
+                                <hr class="my-0"/>
+                            {% endif %}
+
+                    <!--блог создания комментария -->
+                    <form method="post">
+                        {% csrf_token %}
+                        <h4 class="title-comments-add">Добавить комментарий</h4>
+                        <div class="bg-light">
+                            <div class="d-flex flex-row align-items-start">
+                                <img class="rounded-circle" src="{% if object.author.image %} {{ object.author.image.url }} {% else %} {% static 'image/users/default.jpg' %} {% endif %}" width="60" height="60">
+                                <div class="comment-content">
+                                    {{ comment_form.content }}
                                 </div>
                             </div>
-                            <hr class="my-0"/>
-                            <!--блог под цикл комментария -->
-
-
-                            <div class="card-body p-4">
-                                <div class="d-flex flex-start">
-                                    <img class="rounded-circle shadow-1-strong me-3"
-                                         src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(26).webp" alt="avatar"
-                                         width="60"
-                                         height="60"/>
-                                    <div>
-                                        <h6 class="fw-bold mb-1">Lara Stewart</h6>
-                                        <div class="d-flex align-items-center mb-3">
-                                            <p class="mb-0">
-                                                March 15, 2021
-                                                <span class="badge bg-success">Approved</span>
-                                            </p>
-                                            <a href="#!" class="link-muted"><i class="fas fa-pencil-alt ms-2"></i></a>
-                                            <a href="#!" class="text-success"><i class="fas fa-redo-alt ms-2"></i></a>
-                                            <a href="#!" class="link-danger"><i class="fas fa-heart ms-2"></i></a>
-                                        </div>
-                                        <p class="mb-0">
-                                            Contrary to popular belief, Lorem Ipsum is not simply random text. It
-                                            has roots in a piece of classical Latin literature from 45 BC, making it
-                                            over 2000 years old. Richard McClintock, a Latin professor at
-                                            Hampden-Sydney College in Virginia, looked up one of the more obscure
-                                            Latin words, consectetur, from a Lorem Ipsum passage, and going through
-                                            the cites.
-                                        </p>
-                                    </div>
-                                </div>
+                            <div class="text-right">
+                                <button class="btn btn-primary btn-sm shadow-none" type="submit">Добавить</button>
+                                <button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Отмена</button>
                             </div>
-                            <hr class="my-0" style="height: 1px;"/>
-
-
                         </div>
+                    </form>
+
                     </div>
                 </div>
             </div>

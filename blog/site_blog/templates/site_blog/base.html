@@ -95,5 +95,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
+
+     <!-- Cкрипт JavaScript для очистки поля в форме комментария при нажатии "Отмена" -->
+    <script>
+    document.querySelector('.btn-outline-primary').addEventListener('click', function() {
+        document.querySelector('.comment-content textarea').value = '';
+    });
+    </script>
 </body>
 </html>

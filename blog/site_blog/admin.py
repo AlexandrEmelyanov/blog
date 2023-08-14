@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Posts, PostCategory
+from .models import Posts, PostCategory, Comment
 
 
 @admin.register(Posts)
@@ -14,3 +14,10 @@ class PostsAdmin(admin.ModelAdmin):
 class PostCategoryAdmin(admin.ModelAdmin):
     list_display = ('name',)
     fields = ('name',)
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('post', 'author_com', 'create_com', 'content')
+    fields = ('author_com', 'post', 'content')
+    ordering = ('create_com',)

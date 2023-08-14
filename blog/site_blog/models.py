@@ -31,3 +31,13 @@ class Posts(models.Model):
     class Meta:  # for admin panel
         verbose_name = 'Post'
         verbose_name_plural = 'Posts'
+
+
+class Comment(models.Model):
+    author_com = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    post = models.ForeignKey(Posts, on_delete=models.CASCADE, related_name='comments')
+    create_com = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.author_com.username}: {self.content[:40]}'
