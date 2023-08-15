@@ -77,7 +77,7 @@
                         <h4 class="title-comments-add">Добавить комментарий</h4>
                         <div class="bg-light">
                             <div class="d-flex flex-row align-items-start">
-                                <img class="rounded-circle" src="{% if object.author.image %} {{ object.author.image.url }} {% else %} {% static 'image/users/default.jpg' %} {% endif %}" width="60" height="60">
+                                <img class="rounded-circle article-img" src="{% if object.author.image %} {{ object.author.image.url }} {% else %} {% static 'image/users/default.jpg' %} {% endif %}">
                                 <div class="comment-content">
                                     {{ comment_form.content }}
                                 </div>
