@@ -1,11 +1,12 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
 from django.views.generic.list import ListView
 from django.views.generic import DetailView, CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
 
-from .models import Posts
+from .models import Posts, Comment
 from .forms import CommentForm
 from users.models import User
 from common.views import TitleMixin
@@ -44,6 +45,24 @@ class PostDetailView(TitleMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context['comment_form'] = CommentForm()
         return context
+
+    def post(self, request, *args, **kwargs):
+        comment_form = CommentForm(request.POST)
+        post = self.get_object()
+
+        if request.user.is_authenticated:
+            if comment_form.is_valid():
+                content = request.POST.get('content')
+                new_comment = Comment.objects.create(content=content, post=post, author_com=request.user)
+                new_comment.save()
+                messages.success(request, 'Комментарий успешно добавлен.')
+                return redirect('index:post-detail', pk=post.id)
+            else:
+                messages.error(request, 'Произошла ошибка при добавлении комментария. Пожалуйста, проверьте введенные данные и попробуйте снова.')
+                return redirect('index:post-detail', pk=post.id)
+        else:
+            messages.warning(request, 'Авторизуйтесь, чтобы комментировать записи.')
+            return redirect('users:login')
 
 
 class PostCreateView(LoginRequiredMixin, SuccessMessageMixin, TitleMixin, CreateView):

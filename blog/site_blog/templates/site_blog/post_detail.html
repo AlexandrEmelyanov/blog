@@ -72,12 +72,12 @@
                             {% endif %}
 
                     <!--блог создания комментария -->
-                    <form method="post">
+                    <form action="{% url 'index:post-detail' object.id %}" method="post">
                         {% csrf_token %}
                         <h4 class="title-comments-add">Добавить комментарий</h4>
                         <div class="bg-light">
                             <div class="d-flex flex-row align-items-start">
-                                <img class="rounded-circle article-img" src="{% if object.author.image %} {{ object.author.image.url }} {% else %} {% static 'image/users/default.jpg' %} {% endif %}">
+                                <img class="rounded-circle article-img" src="{% if user.image %} {{ user.image.url }} {% else %} {% static 'image/users/default.jpg' %} {% endif %}">
                                 <div class="comment-content">
                                     {{ comment_form.content }}
                                 </div>
@@ -95,8 +95,4 @@
         </div>
     </section>
 
-    <!--% else % -->
-        <!--Комментарии к записи - count (0) -->
-
-    <!--% endif % -->
 {% endblock content %}
