@@ -4,7 +4,8 @@ from django.views.generic.list import ListView
 from django.views.generic import DetailView, CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.auth.decorators import login_required
+from django.shortcuts import HttpResponseRedirect
+
 
 from .models import Posts, Comment
 from .forms import CommentForm
@@ -104,6 +105,12 @@ class PostUpdateView(LoginRequiredMixin, SuccessMessageMixin, UserPassesTestMixi
     def test_func(self):
         post = self.get_object()
         return self.request.user == post.author
+
+
+def comment_delete(request, comment_id):
+    comment = Comment.objects.get(id=comment_id)
+    comment.delete()
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
 def about(request):

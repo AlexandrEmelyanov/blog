@@ -161,3 +161,12 @@ footer a:hover {
 .rounded-circle {
     margin: 0px 10px 0px 15px;
 }
+
+.comment-delete {
+    display: flex;
+    justify-content: right;
+}
+
+.card-body{
+    padding: 15px 20px 15px 15px;
+}
