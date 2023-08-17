@@ -63,6 +63,8 @@ a.article-title:hover {
 
 .article-content {
   white-space: pre-line;
+  margin: 0px 10px 10px 0px;
+  text-align: justify;
 }
 
 .article-img {
@@ -169,4 +171,15 @@ footer a:hover {
 
 .card-body{
     padding: 15px 20px 15px 15px;
+}
+
+.article-link-full-version {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin: 0px 0px 8px 0px;
+}
+
+.btn-primary {
+    background-color: #3694ff;
 }

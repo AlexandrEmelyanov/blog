@@ -21,9 +21,14 @@
                         <small class="text-muted">/ Категория: <a href="{% url 'index:category' post.category.id %}">{{ post.category }}</a></small>
                     </div>
                     <h2><a class="article-title" href="{% url 'index:post-detail' post.id %}">{{ post.title }}</a></h2>
-                    <p class="article-content">{{ post.content }}</p>
+                    <p class="article-content">{{ post.content|truncatewords:50 }}</p>
+                    <div class="article-link-full-version">
+                        <a href="{% url 'index:post-detail' post.id %}" class="btn btn-primary shadow-none btn-sm" >Читать далее →</a>
+                    </div>
                 </div>
+
             </article>
+
         {% endfor %}
     {% endcache %}
 
