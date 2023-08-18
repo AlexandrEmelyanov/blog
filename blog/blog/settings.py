@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -120,7 +120,7 @@ DATABASES = {
 # Users
 AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = '/'
-# Если вы попытаетесь получить доступ к странице, требующей входа в систему, Django будет использовать LOGIN_URL для перенаправления
+# При попытке получить доступ к странице, требующей входа в систему, Django будет использовать роут для перенаправления
 LOGIN_URL = '/users/login/'
 
 # OAuth

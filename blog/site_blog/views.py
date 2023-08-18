@@ -1,16 +1,16 @@
-from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-from django.views.generic.list import ListView
-from django.views.generic import DetailView, CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.shortcuts import HttpResponseRedirect
+from django.shortcuts import (HttpResponseRedirect, get_object_or_404,
+                              redirect, render)
+from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
+from django.views.generic.list import ListView
 
-
-from .models import Posts, Comment
-from .forms import CommentForm
-from users.models import User
 from common.views import TitleMixin
+from users.models import User
+
+from .forms import CommentForm
+from .models import Comment, Posts
 
 
 class IndexView(TitleMixin, ListView):
@@ -19,6 +19,11 @@ class IndexView(TitleMixin, ListView):
     ordering = ('-date_posted',)
     paginate_by = 5
     title = 'Blog - Main'
+
+    def get_context_data(self, **kwargs):  # for cache category
+        context = super().get_context_data(**kwargs)
+        context['category_id'] = self.kwargs.get('category_id')
+        return context
 
     def get_queryset(self):
         queryset = super(IndexView, self).get_queryset()
@@ -59,7 +64,10 @@ class PostDetailView(TitleMixin, DetailView):
                 messages.success(request, 'Комментарий успешно добавлен.')
                 return redirect('index:post-detail', pk=post.id)
             else:
-                messages.error(request, 'Произошла ошибка при добавлении комментария. Пожалуйста, проверьте введенные данные и попробуйте снова.')
+                messages.error(
+                    request,
+                    'Произошла ошибка при добавлении комментария. Пожалуйста, проверьте введенные данные и попробуйте снова'
+                )
                 return redirect('index:post-detail', pk=post.id)
         else:
             messages.warning(request, 'Авторизуйтесь, чтобы комментировать записи.')
