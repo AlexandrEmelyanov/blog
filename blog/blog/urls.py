@@ -24,6 +24,8 @@ urlpatterns = [
     path('', include('site_blog.urls', namespace='index')),
     path('users/', include('users.urls', namespace='users')),
     path('accounts/', include('allauth.urls')),
+
+    path('', include('users_api.urls', namespace='users_api')),
 ]
 
 if settings.DEBUG:
