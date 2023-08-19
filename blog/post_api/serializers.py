@@ -4,7 +4,7 @@ from users.models import User
 
 
 class PostSerializer(serializers.ModelSerializer):
-    author = serializers.ReadOnlyField(source='author.username')
+    author = serializers.HiddenField(default=serializers.CurrentUserDefault())  # current user in hidden field
 
     class Meta:
         model = Posts
