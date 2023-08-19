@@ -1,7 +1,8 @@
 from rest_framework import viewsets, generics
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
 
 from .serializers import PostSerializer
+from .permissions import IsAuthorOrIsAdminOrReadOnly
 
 from site_blog.models import Posts, PostCategory
 
@@ -20,12 +21,14 @@ class PostAPIUpdate(generics.RetrieveUpdateAPIView):  # methods: put, patch
 class PostAPIDelete(generics.RetrieveDestroyAPIView):  # method: delete
     queryset = Posts.objects.all()
     serializer_class = PostSerializer
+    permission_classes = (IsAuthorOrIsAdminOrReadOnly,)
 
 
-# if we're using router with ViewSet -> action for category returns:
+# !! if we're using router with ViewSet -> action for category returns:
 
 # from rest_framework.response import Response
 # from rest_framework.decorators import action
+
 
 # class PostViewSet(viewsets.ModelViewSet):
 #     queryset = Posts.objects.all()
