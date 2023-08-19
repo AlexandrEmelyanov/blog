@@ -39,8 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'debug_toolbar',
 
-    'rest_framework',
-    
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -53,6 +51,9 @@ INSTALLED_APPS = [
     'site_blog',
     'users',
 
+    'rest_framework',
+    'users_api',
+    'post_api',
 ]
 
 MIDDLEWARE = [
@@ -190,3 +191,11 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # Media files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# api
+REST_FRAMEWORK = {
+    'DEFAULT_RENDER_CLASSES': [
+        'rest_framework.renders.JSONRender',
+        'rest_framework.renders.BrowsableAPIRenderer',
+    ]
+}

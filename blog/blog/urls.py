@@ -25,7 +25,8 @@ urlpatterns = [
     path('users/', include('users.urls', namespace='users')),
     path('accounts/', include('allauth.urls')),
 
-    path('', include('users_api.urls', namespace='users_api')),
+    path('', include('users_api.urls', namespace='users-api')),
+    path('', include('post_api.urls', namespace='post-api')),
 ]
 
 if settings.DEBUG:
