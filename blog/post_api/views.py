@@ -2,7 +2,7 @@ from rest_framework import viewsets, generics
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
 
 from .serializers import PostSerializer
-from .permissions import IsAuthorOrIsAdminOrReadOnly
+from .permissions import IsAuthorOrIsAdminOrReadOnly, IsOwnerOrReadonly
 
 from site_blog.models import Posts, PostCategory
 
@@ -16,6 +16,7 @@ class PostAPIView(generics.ListCreateAPIView):  # methods: get, post
 class PostAPIUpdate(generics.RetrieveUpdateAPIView):  # methods: put, patch
     queryset = Posts.objects.all()
     serializer_class = PostSerializer
+    permission_classes = (IsOwnerOrReadonly,)
 
 
 class PostAPIDelete(generics.RetrieveDestroyAPIView):  # method: delete
