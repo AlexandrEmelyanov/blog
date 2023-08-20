@@ -10,19 +10,19 @@ from site_blog.models import Posts, PostCategory
 class PostAPIView(generics.ListCreateAPIView):  # methods: get, post
     queryset = Posts.objects.all()
     serializer_class = PostSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (IsAuthenticatedOrReadOnly, )
 
 
 class PostAPIUpdate(generics.RetrieveUpdateAPIView):  # methods: put, patch
     queryset = Posts.objects.all()
     serializer_class = PostSerializer
-    permission_classes = (IsOwnerOrReadonly,)
+    permission_classes = (IsOwnerOrReadonly, )
 
 
 class PostAPIDelete(generics.RetrieveDestroyAPIView):  # method: delete
     queryset = Posts.objects.all()
     serializer_class = PostSerializer
-    permission_classes = (IsAuthorOrIsAdminOrReadOnly,)
+    permission_classes = (IsAuthorOrIsAdminOrReadOnly, )
 
 
 # !! if we're using router with ViewSet -> action for category returns:

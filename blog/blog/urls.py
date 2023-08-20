@@ -25,6 +25,10 @@ urlpatterns = [
     path('users/', include('users.urls', namespace='users')),
     path('accounts/', include('allauth.urls')),
 
+    path('api/v1/drf-auth/', include('rest_framework.urls')),  # auth session and cookie
+
+
+
     path('', include('users_api.urls', namespace='users-api')),
     path('', include('post_api.urls', namespace='post-api')),
 ]
