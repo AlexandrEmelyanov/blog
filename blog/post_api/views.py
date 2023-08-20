@@ -1,5 +1,6 @@
 from rest_framework import viewsets, generics
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
+from rest_framework.authentication import TokenAuthentication
 
 from .serializers import PostSerializer
 from .permissions import IsAuthorOrIsAdminOrReadOnly, IsOwnerOrReadonly
@@ -23,6 +24,7 @@ class PostAPIDelete(generics.RetrieveDestroyAPIView):  # method: delete
     queryset = Posts.objects.all()
     serializer_class = PostSerializer
     permission_classes = (IsAuthorOrIsAdminOrReadOnly, )
+    authentication_classes = (TokenAuthentication, )
 
 
 # !! if we're using router with ViewSet -> action for category returns:

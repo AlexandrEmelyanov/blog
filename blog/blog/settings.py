@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'users',
 
     'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
     'users_api',
     'post_api',
 ]
@@ -194,8 +196,14 @@ MEDIA_URL = '/media/'
 
 # api
 REST_FRAMEWORK = {
-    'DEFAULT_RENDER_CLASSES': [
+    'DEFAULT_RENDER_CLASSES': (
         'rest_framework.renders.JSONRender',
         'rest_framework.renders.BrowsableAPIRenderer',
-    ]
+    ),
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
 }

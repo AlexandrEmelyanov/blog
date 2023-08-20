@@ -17,7 +17,7 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,7 +27,8 @@ urlpatterns = [
 
     path('api/v1/drf-auth/', include('rest_framework.urls')),  # auth session and cookie
 
-
+    path('api/v1/auth/', include('djoser.urls')),  # auth by token
+    re_path(r'^auth/', include('djoser.urls.authtoken')),
 
     path('', include('users_api.urls', namespace='users-api')),
     path('', include('post_api.urls', namespace='post-api')),
