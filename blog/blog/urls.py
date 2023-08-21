@@ -17,7 +17,8 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
+from .yasg import urlpatterns as api_doc_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,7 +30,15 @@ urlpatterns = [
     path('', include('users_api.urls', namespace='users-api')),
     path('', include('post_api.urls', namespace='post-api')),
     path('', include('comment_api.urls', namespace='comment-api')),
+
+    # auth_api
+    path('api/v1/drf-auth/', include('rest_framework.urls')),  # auth session and cookie
+    path('api/v1/auth/', include('djoser.urls')),  # auth by token
+    re_path(r'^auth/', include('djoser.urls.authtoken')),
 ]
+
+# api_doc
+urlpatterns += api_doc_urls
 
 if settings.DEBUG:
     urlpatterns.append(path('__debug__', include('debug_toolbar.urls')))
