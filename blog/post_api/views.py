@@ -1,12 +1,12 @@
-from rest_framework import viewsets, generics
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.pagination import PageNumberPagination
 
 from .serializers import PostSerializer
 from .permissions import IsAuthorOrIsAdminOrReadOnly, IsOwnerOrReadonly
 
-from site_blog.models import Posts, PostCategory
+from site_blog.models import Posts
 
 
 class PostAPIListPagination(PageNumberPagination):
@@ -15,21 +15,21 @@ class PostAPIListPagination(PageNumberPagination):
     max_page_size = 100
 
 
-class PostAPIList(generics.ListCreateAPIView):  # methods: get, post
+class PostAPIList(generics.ListCreateAPIView):
     queryset = Posts.objects.all()
     serializer_class = PostSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
     pagination_class = PostAPIListPagination
 
 
-class PostAPIUpdate(generics.RetrieveUpdateAPIView):  # methods: put, patch
+class PostAPIUpdate(generics.RetrieveUpdateAPIView):
     queryset = Posts.objects.all()
     serializer_class = PostSerializer
     permission_classes = (IsOwnerOrReadonly,)
     authentication_classes = (TokenAuthentication,)
 
 
-class PostAPIDelete(generics.RetrieveDestroyAPIView):  # method: delete
+class PostAPIDelete(generics.RetrieveDestroyAPIView):
     queryset = Posts.objects.all()
     serializer_class = PostSerializer
     permission_classes = (IsAuthorOrIsAdminOrReadOnly,)

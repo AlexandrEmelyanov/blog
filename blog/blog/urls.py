@@ -28,6 +28,7 @@ urlpatterns = [
     # api
     path('', include('users_api.urls', namespace='users-api')),
     path('', include('post_api.urls', namespace='post-api')),
+    path('', include('comment_api.urls', namespace='comment-api')),
 ]
 
 if settings.DEBUG:
