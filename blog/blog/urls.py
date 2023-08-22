@@ -30,6 +30,7 @@ urlpatterns = [
     path('', include('users_api.urls', namespace='users-api')),
     path('', include('post_api.urls', namespace='post-api')),
     path('', include('comment_api.urls', namespace='comment-api')),
+    path('', include('category_api.urls', namespace='category-api')),
 
     # auth_api
     path('api/v1/drf-auth/', include('rest_framework.urls')),  # auth session and cookie

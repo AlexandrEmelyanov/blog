@@ -10,7 +10,7 @@ class UserAPIList(generics.ListAPIView):
     serializer_class = UserSerializer
 
 
-class DetailUserAPIList(generics.RetrieveAPIView):
+class UserAPIDetail(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     
