@@ -5,7 +5,7 @@
 {% block title %} {{title}} {% endblock %}
 
 {% block content %}
-    {% cache 30 object_list page_obj.number category_id%}
+    {% cache 1 object_list page_obj.number category_id%}
         {% for post in object_list %}
             <article class="media content-section">
                 <img class="rounded-circle article-img" alt="Аватар" src="
@@ -23,6 +23,8 @@
                     <h2><a class="article-title" href="{% url 'index:post-detail' post.id %}">{{ post.title }}</a></h2>
                     <p class="article-content">{{ post.content|truncatewords:50 }}</p>
                     <div class="article-link-full-version">
+                        <i class="bi bi-chat-left-text" style="font-size:18px; font-style: normal; font-weight:500; margin-left:2px"> {{ post.comments.count }}</i>
+
                         <a href="{% url 'index:post-detail' post.id %}" class="btn btn-primary shadow-none btn-sm" >Читать далее →</a>
                     </div>
                 </div>

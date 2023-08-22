@@ -118,6 +118,7 @@ class PostUpdateView(LoginRequiredMixin, SuccessMessageMixin, UserPassesTestMixi
 def comment_delete(request, comment_id):
     comment = Comment.objects.get(id=comment_id)
     comment.delete()
+    messages.success(request, 'Комментарий успешно удален.')
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 

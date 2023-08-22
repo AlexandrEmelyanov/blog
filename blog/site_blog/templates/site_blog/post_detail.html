@@ -41,7 +41,7 @@
                         <div class="card text-dark">
 
                             <!--блог списка комментарий -->
-                            {% if object.comments.all %}
+                            {% if object.comments.exists %}
                                 <h4 class="title-comments">Комментарии ({{ object.comments.count }})</h4>
                                 <hr class="my-0"/>
                                 {% for comment in object.comments.all %}
