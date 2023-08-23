@@ -20,6 +20,8 @@ from django.contrib import admin
 from django.urls import include, path, re_path
 from .yasg import urlpatterns as api_doc_urls
 
+admin.site.index_title = 'Администрирование блога'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('site_blog.urls', namespace='index')),
