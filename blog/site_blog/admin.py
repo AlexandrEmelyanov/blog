@@ -5,12 +5,18 @@ from .models import Comment, PostCategory, Posts
 
 @admin.register(Posts)
 class PostsAdmin(admin.ModelAdmin):
-    list_display = ('title', 'author', 'date_posted', 'category')
+    list_display = ('title', 'author', 'date_posted', 'category', 'rating_post')
     fields = ('author', 'title', 'content', 'category')
     search_fields = ('author', 'title', 'category')
     ordering = ('-date_posted', '-title')
     list_editable = ('category',)
     list_per_page = 8
+
+    @admin.display(ordering='comments', description='Rating')
+    def rating_post(self, post: Posts):
+        if post.comments.count() < 3:
+            return 'Не популярный'
+        return 'Популярный'
 
 
 @admin.register(PostCategory)
