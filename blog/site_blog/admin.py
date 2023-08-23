@@ -15,10 +15,20 @@ class PostsAdmin(admin.ModelAdmin):
 
 @admin.register(PostCategory)
 class PostCategoryAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'post_counter')
-    fields = ('name', 'post_counter')
+    list_display = ('id', 'name', 'post_counter', 'rating_category')
+    fields = ('name',)
+    readonly_fields = ('post_counter',)
     ordering = ('id', 'name')
+    list_editable = ('name',)
     list_per_page = 8
+
+    @admin.display(ordering='post_counter', description='Rating')  # calculated field
+    def rating_category(self, category: PostCategory):
+        if category.post_counter < 3:
+            return 'Не популярная'
+        if 3 <= category.post_counter <= 6:
+            return 'Средняя'
+        return 'Популярная'
 
 
 @admin.register(Comment)
