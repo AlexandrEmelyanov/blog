@@ -15,9 +15,10 @@ class PostsAdmin(admin.ModelAdmin):
 
 @admin.register(PostCategory)
 class PostCategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'id')
-    fields = ('name',)
+    list_display = ('id', 'name', 'post_counter')
+    fields = ('name', 'post_counter')
     ordering = ('id', 'name')
+    list_per_page = 8
 
 
 @admin.register(Comment)
