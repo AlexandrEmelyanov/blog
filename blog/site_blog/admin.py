@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.db.models import QuerySet
 
 from .models import Comment, PostCategory, Posts
 
@@ -11,12 +12,17 @@ class PostsAdmin(admin.ModelAdmin):
     ordering = ('-date_posted', '-title')
     list_editable = ('category',)
     list_per_page = 8
+    actions = ('set_category',)
 
     @admin.display(ordering='comments', description='Rating')
     def rating_post(self, post: Posts):
         if post.comments.count() < 3:
             return 'Не популярный'
         return 'Популярный'
+
+    @admin.action(description='Задать категорию')
+    def set_category(self, request, qs: QuerySet):
+        qs.update(category=Posts.category.objects.all())
 
 
 @admin.register(PostCategory)

@@ -77,7 +77,7 @@ class PostDetailView(TitleMixin, DetailView):
 class PostCreateView(LoginRequiredMixin, SuccessMessageMixin, TitleMixin, CreateView):
     model = Posts
     title = 'Blog - CreatePost'
-    fields = ('title', 'content')
+    fields = ('category', 'title', 'content')
     success_message = 'Запись успешно создана.'
     template_name = 'site_blog/post_create.html'
 
@@ -100,7 +100,7 @@ class PostDeleteView(LoginRequiredMixin, SuccessMessageMixin, UserPassesTestMixi
 
 class PostUpdateView(LoginRequiredMixin, SuccessMessageMixin, UserPassesTestMixin, TitleMixin, UpdateView):
     model = Posts
-    fields = ('title', 'content')
+    fields = ('category', 'title', 'content')
     title = 'Blog - PostUpdate'
     success_message = 'Запись успешно изменена.'
     success_url = '/'
