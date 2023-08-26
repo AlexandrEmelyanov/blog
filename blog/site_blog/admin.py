@@ -8,11 +8,10 @@ from .models import Comment, PostCategory, Posts
 class PostsAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'date_posted', 'category', 'rating_post')
     fields = ('author', 'title', 'content', 'category')
-    search_fields = ('author', 'title', 'category')
+    search_fields = ('title__istartswith',)
     ordering = ('-date_posted', '-title')
     list_editable = ('category',)
     list_per_page = 8
-    actions = ('set_category',)
 
     @admin.display(ordering='comments', description='Rating')
     def rating_post(self, post: Posts):
@@ -20,15 +19,12 @@ class PostsAdmin(admin.ModelAdmin):
             return 'Не популярный'
         return 'Популярный'
 
-    @admin.action(description='Задать категорию')
-    def set_category(self, request, qs: QuerySet):
-        qs.update(category=Posts.category.objects.all())
-
 
 @admin.register(PostCategory)
 class PostCategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'post_counter', 'rating_category')
     fields = ('name',)
+    search_fields = ('name',)
     readonly_fields = ('post_counter',)
     ordering = ('id', 'name')
     list_editable = ('name',)
@@ -49,3 +45,4 @@ class CommentAdmin(admin.ModelAdmin):
     fields = ('author_com', 'post', 'content')
     ordering = ('-create_com', 'post')
     list_per_page = 8
+    search_fields = ('content',)
