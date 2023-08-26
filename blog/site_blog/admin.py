@@ -1,7 +1,26 @@
 from django.contrib import admin
 from django.db.models import QuerySet
+from django.db import models
 
 from .models import Comment, PostCategory, Posts
+
+
+class RatingFilter(admin.SimpleListFilter):
+    title = 'Фильтр по рейтингу'
+    parameter_name = 'rating'
+
+    def lookups(self, request, model_admin):
+        return [
+            ('<3', 'Не популярный'),
+            ('>=3', 'Популярный'),
+        ]
+
+    def queryset(self, request, queryset: QuerySet):
+        if self.value() == '<3':
+            return queryset.annotate(comment_count=models.Count('comments')).filter(comment_count__lt=3)
+        elif self.value() == '>=3':
+            return queryset.annotate(comment_count=models.Count('comments')).filter(comment_count__gte=3)
+        return queryset
 
 
 @admin.register(Posts)
@@ -12,8 +31,9 @@ class PostsAdmin(admin.ModelAdmin):
     ordering = ('-date_posted', '-title')
     list_editable = ('category',)
     list_per_page = 8
+    list_filter = ('category', RatingFilter)
 
-    @admin.display(ordering='comments', description='Rating')
+    @admin.display(ordering='comments', description='rating')
     def rating_post(self, post: Posts):
         if post.comments.count() < 3:
             return 'Не популярный'
