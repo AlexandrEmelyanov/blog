@@ -1,8 +1,8 @@
 from rest_framework import generics
 
-from .serializers import UserSerializer
-
 from users.models import User
+
+from .serializers import UserSerializer
 
 
 class UserAPIList(generics.ListAPIView):
@@ -13,4 +13,3 @@ class UserAPIList(generics.ListAPIView):
 class UserAPIDetail(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    

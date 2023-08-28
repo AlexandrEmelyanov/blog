@@ -1,6 +1,6 @@
 from django.contrib import admin
-from django.db.models import QuerySet
 from django.db import models
+from django.db.models import QuerySet
 
 from .models import Comment, PostCategory, Posts
 

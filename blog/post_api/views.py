@@ -1,12 +1,12 @@
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.pagination import PageNumberPagination
-
-from .serializers import PostSerializer
-from .permissions import IsAuthorOrIsAdminOrReadOnly, IsOwnerOrReadonly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from site_blog.models import Posts
+
+from .permissions import IsAuthorOrIsAdminOrReadOnly, IsOwnerOrReadonly
+from .serializers import PostSerializer
 
 
 class PostAPIListPagination(PageNumberPagination):

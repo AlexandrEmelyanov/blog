@@ -2,10 +2,10 @@ from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
-from .serializers import CommentSerializer
-from .permissions import IsAuthorOrIsAdminOrReadOnly
-
 from site_blog.models import Comment
+
+from .permissions import IsAuthorOrIsAdminOrReadOnly
+from .serializers import CommentSerializer
 
 
 class CommentAPIListPagination(PageNumberPagination):

@@ -18,6 +18,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path, re_path
+
 from .yasg import urlpatterns as api_doc_urls
 
 admin.site.index_title = 'Администрирование блога'

@@ -1,8 +1,8 @@
 from rest_framework import generics
 
-from .serializers import CategorySerializer
-
 from site_blog.models import PostCategory
+
+from .serializers import CategorySerializer
 
 
 class CategoryAPIList(generics.ListAPIView):
@@ -13,4 +13,3 @@ class CategoryAPIList(generics.ListAPIView):
 class CategoryAPIDetail(generics.RetrieveAPIView):
     queryset = PostCategory.objects.all()
     serializer_class = CategorySerializer
-

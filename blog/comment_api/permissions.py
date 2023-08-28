@@ -10,4 +10,3 @@ class IsAuthorOrIsAdminOrReadOnly(permissions.BasePermission):
 
         comment = Comment.objects.get(pk=view.kwargs['pk'])
         return bool(request.user and request.user.is_staff) or bool(request.user == comment.author_com)
-
