@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <style>
+        body {
+            background-color: #F2F2F2;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 20vh;
+            padding: 20px;
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 24px;
+            margin: 0;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        p {
+            font-size: 16px;
+            margin: 0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        a.button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #0080FF;
+            color: #FFFFFF;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Поздравляем!</h1>
+        <p>Ваша учетная запись успешно подтверждена!</p>
+        <a href="{% url 'users:login' %}" class="button">Продолжить</a>
+    </div>
+</body>
+</html>

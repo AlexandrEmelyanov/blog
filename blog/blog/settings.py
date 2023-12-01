@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+DOMAIN_NAME = 'http://localhost:8000'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -145,6 +147,9 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
     }
 }
+
+# Sending emails
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

@@ -1,0 +1,32 @@
+#version: '3'
+#services:
+#  # Сервис для базы данных PostgreSQL
+#  db:
+#    image: postgres
+#    environment:
+#      POSTGRES_USER: db_mp_blog_username
+#      POSTGRES_PASSWORD: db_mp_blog_password
+#      POSTGRES_DB: db_mp_blog
+#    restart: always
+#
+#  # Сервис для Redis
+#  redis:
+#    image: redis
+#    restart: always
+#    ports:
+#      - "6379:6379"
+#
+#  # Сервис для Django приложения
+#  site:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    command: python manage.py runserver 0.0.0.0:8000
+#    volumes:
+#      - .:/app
+#    ports:
+#      - "8000:8000"
+#    depends_on:
+#      - db
+#      - redis
+#    restart: always
