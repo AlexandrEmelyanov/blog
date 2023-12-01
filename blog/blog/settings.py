@@ -128,7 +128,6 @@ DATABASES = {
 # Users
 AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = '/'
-# При попытке получить доступ к странице, требующей входа в систему, Django будет использовать роут для перенаправления
 LOGIN_URL = '/users/login/'
 
 # OAuth
@@ -149,7 +148,18 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 # Sending emails
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+
+EMAIL_HOST_USER = 'test-blog-server@yandex.ru'
+EMAIL_HOST_PASSWORD = 'tfcpbfrzlfktmvqa'
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
+EMAIL_ADMIN = EMAIL_HOST_USER
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -200,7 +210,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-# api
+# Api
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 8,  # global
@@ -216,3 +226,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ),
 }
+
+# Celery
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
