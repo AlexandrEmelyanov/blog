@@ -11,7 +11,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('site_blog.urls', namespace='index')),
     path('users/', include('users.urls', namespace='users')),
-    path('accounts/', include('allauth.urls')),
 
     # api
     path('', include('users_api.urls', namespace='users-api')),

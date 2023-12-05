@@ -26,25 +26,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
     'debug_toolbar',
-
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.github',
 
     'crispy_forms',
     'crispy_bootstrap4',
     'django_extensions',
 
-    'site_blog',
-    'users',
-
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
     'drf_yasg',
+
+    'site_blog',
+    'users',
     'users_api',
     'post_api',
 ]
@@ -117,23 +111,6 @@ DATABASES = {
 AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/users/login/'
-
-# OAuth
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
-
-SITE_ID = 1
-
-# Provider specific settings
-SOCIALACCOUNT_PROVIDERS = {
-    'github': {
-        'SCOPE': [
-            'user',
-        ],
-    }
-}
 
 # Sending emails
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
