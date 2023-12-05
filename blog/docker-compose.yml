@@ -20,9 +20,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - '8000:8000'
-    depends_on:
-      - postgres-db
-      - redis
     environment:
       DB_NAME: 'db_mp_blog'
       DB_USER: 'db_mp_blog_username'
@@ -33,14 +30,13 @@ services:
       CELERY_RESULT_BACKEND: 'redis://redis:6379'
       SECRET_KEY: 'django-insecure-c467_p2n3g4ni%yq_ebaqe1j2=!ozmn=zvgh8i23uzos&9p3pc'
     restart: always
+    depends_on:
+      - postgres-db
+      - redis
 
   celery:
     build: .
     command: celery -A blog worker --loglevel=info
-    depends_on:
-      - site
-      - redis
-      - postgres-db
     environment:
       DB_NAME: 'db_mp_blog'
       DB_USER: 'db_mp_blog_username'
@@ -50,3 +46,7 @@ services:
       CELERY_BROKER_URL: 'redis://redis:6379'
       CELERY_RESULT_BACKEND: 'redis://redis:6379'
       SECRET_KEY: 'django-insecure-c467_p2n3g4ni%yq_ebaqe1j2=!ozmn=zvgh8i23uzos&9p3pc'
+    depends_on:
+      - site
+      - redis
+      - postgres-db

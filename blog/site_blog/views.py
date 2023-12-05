@@ -66,7 +66,7 @@ class PostDetailView(TitleMixin, DetailView):
             else:
                 messages.error(
                     request,
-                    'Произошла ошибка при добавлении комментария. Пожалуйста, проверьте введенные данные и попробуйте снова'
+                    'Произошла ошибка. Пожалуйста, проверьте введенные данные и попробуйте снова'
                 )
                 return redirect('index:post-detail', pk=post.id)
         else:

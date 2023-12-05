@@ -1,10 +1,10 @@
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.core.mail import send_mail
-from django.urls import reverse
 from django.db import models
-from PIL import Image
-from django.conf import settings
+from django.urls import reverse
 from django.utils.timezone import now
+from PIL import Image
 
 
 class User(AbstractUser):

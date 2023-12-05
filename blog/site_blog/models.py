@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.signals import post_delete, post_save
+from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from django.shortcuts import reverse
 
@@ -65,22 +65,13 @@ class Posts(models.Model):
             old_category.save()
 
 
-# Обработчик сигнала post_delete, чтобы уменьшать счетчик при удалении поста
+# Уменьшение счетчика при удалении поста
 @receiver(post_delete, sender=Posts)
 def update_post_counter(sender, instance, **kwargs):
     if instance.category:
         category = instance.category
         category.post_counter -= 1
         category.save()
-
-
-# def save_post_counter(sender, instance, created, **kwargs):
-#     if created:
-#         instance.category.post_counter += 1
-#         instance.category.save()
-#
-#
-# post_save.connect(update_post_counter, sender=Posts)
 
 
 class Comment(models.Model):
