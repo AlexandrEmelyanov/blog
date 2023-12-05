@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/site_blog/fixtures/comments.json" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/site_blog/fixtures/post_category.json" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/site_blog/fixtures/posts.json" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/users/fixtures/users.json" charset="UTF-8" />
+  </component>
+</project>

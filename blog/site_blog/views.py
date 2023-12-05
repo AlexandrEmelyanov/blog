@@ -20,7 +20,7 @@ class IndexView(TitleMixin, ListView):
     paginate_by = 5
     title = 'Blog - Main'
 
-    def get_context_data(self, **kwargs):  # for cache category
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['category_id'] = self.kwargs.get('category_id')
         return context

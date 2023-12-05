@@ -1,32 +1,52 @@
-#version: '3'
-#services:
-#  # Сервис для базы данных PostgreSQL
-#  db:
-#    image: postgres
-#    environment:
-#      POSTGRES_USER: db_mp_blog_username
-#      POSTGRES_PASSWORD: db_mp_blog_password
-#      POSTGRES_DB: db_mp_blog
-#    restart: always
-#
-#  # Сервис для Redis
-#  redis:
-#    image: redis
-#    restart: always
-#    ports:
-#      - "6379:6379"
-#
-#  # Сервис для Django приложения
-#  site:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-#    command: python manage.py runserver 0.0.0.0:8000
-#    volumes:
-#      - .:/app
-#    ports:
-#      - "8000:8000"
-#    depends_on:
-#      - db
-#      - redis
-#    restart: always
+version: '3'
+services:
+  postgres-db:
+    image: postgres
+    environment:
+      POSTGRES_USER: db_mp_blog_username
+      POSTGRES_PASSWORD: db_mp_blog_password
+      POSTGRES_DB: db_mp_blog
+    restart: always
+
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - '6379:6379'
+
+  site:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '8000:8000'
+    depends_on:
+      - postgres-db
+      - redis
+    environment:
+      DB_NAME: 'db_mp_blog'
+      DB_USER: 'db_mp_blog_username'
+      DB_PASSWORD: 'db_mp_blog_password'
+      DB_HOST: 'postgres-db'
+      DB_PORT: 5432
+      CELERY_BROKER_URL: 'redis://redis:6379'
+      CELERY_RESULT_BACKEND: 'redis://redis:6379'
+      SECRET_KEY: 'django-insecure-c467_p2n3g4ni%yq_ebaqe1j2=!ozmn=zvgh8i23uzos&9p3pc'
+    restart: always
+
+  celery:
+    build: .
+    command: celery -A blog worker --loglevel=info
+    depends_on:
+      - site
+      - redis
+      - postgres-db
+    environment:
+      DB_NAME: 'db_mp_blog'
+      DB_USER: 'db_mp_blog_username'
+      DB_PASSWORD: 'db_mp_blog_password'
+      DB_HOST: 'postgres-db'
+      DB_PORT: 5432
+      CELERY_BROKER_URL: 'redis://redis:6379'
+      CELERY_RESULT_BACKEND: 'redis://redis:6379'
+      SECRET_KEY: 'django-insecure-c467_p2n3g4ni%yq_ebaqe1j2=!ozmn=zvgh8i23uzos&9p3pc'

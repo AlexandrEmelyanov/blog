@@ -11,7 +11,7 @@ from .serializers import PostSerializer
 
 class PostAPIListPagination(PageNumberPagination):
     page_size = 5
-    page_size_query_param = 'page_size'  # .../api/v1/post/.../page_size=n, when n <= max_page_size
+    page_size_query_param = 'page_size'
     max_page_size = 100
 
 
@@ -34,6 +34,7 @@ class PostAPIDelete(generics.RetrieveDestroyAPIView):
     serializer_class = PostSerializer
     permission_classes = (IsAuthorOrIsAdminOrReadOnly,)
     authentication_classes = (TokenAuthentication,)
+
 
 # !! if we're using router with ViewSet -> action for category returns:
 

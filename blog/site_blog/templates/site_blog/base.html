@@ -70,7 +70,7 @@
                     <p class='text-muted'>
                         <ul class="list-group">
                             {% for cat in categories %}
-                                <li class="list-category"><a href="{% url 'index:category' cat.id %}" class="list-group-item list-group-item-light">{{ cat.name }} ({{ cat.post_counter }})</a></li>
+                                <li class="list-category"><a href="{% url 'index:category' cat.id %}" class="list-group-item list-group-item-light">{{ cat.name }}</a></li>
                             {% endfor %}
                         </ul>
                     </p>

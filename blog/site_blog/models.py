@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.signals import post_delete
+from django.db.models.signals import post_delete, post_save
 from django.dispatch import receiver
 from django.shortcuts import reverse
 
@@ -29,7 +29,7 @@ class Posts(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(PostCategory, on_delete=models.CASCADE, null=True, blank=True)
 
-    class Meta:  # for admin panel
+    class Meta:
         verbose_name = 'Post'
         verbose_name_plural = 'Posts'
 
@@ -72,6 +72,15 @@ def update_post_counter(sender, instance, **kwargs):
         category = instance.category
         category.post_counter -= 1
         category.save()
+
+
+# def save_post_counter(sender, instance, created, **kwargs):
+#     if created:
+#         instance.category.post_counter += 1
+#         instance.category.save()
+#
+#
+# post_save.connect(update_post_counter, sender=Posts)
 
 
 class Comment(models.Model):
